@@ -7,8 +7,9 @@ const app = express()
 const expressLayout = require('express-ejs-layouts')
 
 const indexRouter = require('./routes/index')
-
+const authorRouter = require('./routes/authors')
 const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
 
 // set a view engine this time it is an ejs engine
 
@@ -27,7 +28,14 @@ app.use(expressLayout)
 
 app.use(express.static('public'))
 
+// tell express how to use the body parser
+
+app.use(bodyParser.urlencoded({ limit:'10mb', extended: false}))
+
+// these are routes 
+
 app.use('/', indexRouter)
+app.use('/author', authorRouter) 
 
 // setting up the database 
 
